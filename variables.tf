@@ -7,6 +7,11 @@ variable "region" {
   default     = "us-central1"
 }
 
+variable "gke_location" {
+  description = "region or zone the GKE cluster will exist in"
+  default     = "us-central1-b"
+}
+
 variable "gke_zones" {
   description = "zones the cluster will exist in"
   default     = ["us-central1-b"]
