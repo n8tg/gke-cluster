@@ -30,9 +30,9 @@ resource "google_container_node_pool" "primary_nodes" {
   node_config {
     # Google recommends custom service accounts that have cloud-platform scope and permissions granted via IAM Roles.
     service_account = google_service_account.cluster.email
-    preemptible     = var.gke_default_nodepool_preemptable
-    disk_type       = var.gke_default_nodepool_disk_type
-    disk_size_gb    = var.gke_default_nodepool_disk_size_gb
+    preemptible     = var.gke_primary_nodepool_preemptable
+    disk_type       = var.gke_primary_nodepool_disk_type
+    disk_size_gb    = var.gke_primary_nodepool_disk_size_gb
     oauth_scopes = [
       "https://www.googleapis.com/auth/cloud-platform",
       "https://www.googleapis.com/auth/logging.write",
@@ -44,7 +44,7 @@ resource "google_container_node_pool" "primary_nodes" {
     }
 
     # preemptible  = true
-    machine_type = "n1-standard-1"
+    machine_type = var.gke_primary_node_type
     tags         = ["gke-node", "${var.project_id}-gke"]
     metadata = {
       disable-legacy-endpoints = "true"
