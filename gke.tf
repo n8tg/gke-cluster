@@ -54,7 +54,7 @@ resource "google_container_node_pool" "free_node" {
   name       = "micro-${google_container_cluster.primary.name}"
   cluster    = google_container_cluster.primary.name
   location   = var.gke_location
-  node_count = var.gke_num_nodes
+  node_count = 1
 
   node_config {
     # Google recommends custom service accounts that have cloud-platform scope and permissions granted via IAM Roles.
