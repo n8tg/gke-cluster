@@ -9,7 +9,6 @@ resource "google_service_account" "cluster" {
 resource "google_container_cluster" "primary" {
   name           = "${var.project_id}-gke"
   location       = var.gke_location
-  node_locations = var.gke_zones
 
   # We can't create a cluster with no node pool defined, but we want to only use
   # separately managed node pools. So we create the smallest possible default
