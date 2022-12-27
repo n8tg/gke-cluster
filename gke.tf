@@ -73,7 +73,7 @@ resource "google_container_node_pool" "free_node" {
     }
 
     # preemptible  = true
-    machine_type = "e1-micro"
+    machine_type = "e2-micro"
     tags         = ["gke-node", "${var.project_id}-gke"]
     metadata = {
       disable-legacy-endpoints = "true"
