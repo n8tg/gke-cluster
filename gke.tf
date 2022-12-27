@@ -7,8 +7,8 @@ resource "google_service_account" "cluster" {
 
 # GKE cluster
 resource "google_container_cluster" "primary" {
-  name     = "${var.project_id}-gke"
-  location = var.region
+  name           = "${var.project_id}-gke"
+  node_locations = var.gke_zones
 
   # We can't create a cluster with no node pool defined, but we want to only use
   # separately managed node pools. So we create the smallest possible default
@@ -23,13 +23,16 @@ resource "google_container_cluster" "primary" {
 # Separately Managed Node Pool
 resource "google_container_node_pool" "primary_nodes" {
   name       = google_container_cluster.primary.name
-  location   = var.region
+  location   = var.gke_zones
   cluster    = google_container_cluster.primary.name
   node_count = var.gke_num_nodes
 
   node_config {
     # Google recommends custom service accounts that have cloud-platform scope and permissions granted via IAM Roles.
     service_account = google_service_account.cluster.email
+    preemptible     = var.gke_default_nodepool_preemptable
+    disk_type       = var.gke_default_nodepool_disk_type
+    disk_size_gb    = var.gke_default_nodepool_disk_size_gb
     oauth_scopes = [
       "https://www.googleapis.com/auth/cloud-platform",
       "https://www.googleapis.com/auth/logging.write",
