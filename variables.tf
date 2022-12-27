@@ -12,11 +12,6 @@ variable "gke_location" {
   default     = "us-central1-b"
 }
 
-variable "gke_zones" {
-  description = "zones the cluster will exist in"
-  default     = ["us-central1-b"]
-}
-
 variable "gke_num_nodes" {
   default     = 2
   description = "number of gke nodes"
