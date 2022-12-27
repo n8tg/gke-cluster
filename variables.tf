@@ -12,6 +12,6 @@ variable "gke_num_nodes" {
 }
 
 variable "gke_default_node_type" {
-  default = "e2-micro"
+  default     = "e2-micro"
   description = "node type for compute nodes"
 }
