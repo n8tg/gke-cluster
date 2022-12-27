@@ -49,3 +49,34 @@ resource "google_container_node_pool" "primary_nodes" {
     }
   }
 }
+
+resource "google_container_node_pool" "free_node" {
+  name       = google_container_cluster.primary.name
+  cluster    = google_container_cluster.primary.name
+  location   = var.gke_location
+  node_count = var.gke_num_nodes
+
+  node_config {
+    # Google recommends custom service accounts that have cloud-platform scope and permissions granted via IAM Roles.
+    service_account = google_service_account.cluster.email
+    preemptible     = false
+    disk_type       = var.gke_primary_nodepool_disk_type
+    disk_size_gb    = 10
+    oauth_scopes = [
+      "https://www.googleapis.com/auth/cloud-platform",
+      "https://www.googleapis.com/auth/logging.write",
+      "https://www.googleapis.com/auth/monitoring",
+    ]
+
+    labels = {
+      env = var.project_id
+    }
+
+    # preemptible  = true
+    machine_type = "e1-micro"
+    tags         = ["gke-node", "${var.project_id}-gke"]
+    metadata = {
+      disable-legacy-endpoints = "true"
+    }
+  }
+}
