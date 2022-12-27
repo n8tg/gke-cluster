@@ -1,3 +1,3 @@
 module istio {
-  source = "github.com/n8tg/kubernetes-base-apps//.?ref=main"
+  source = "git::git@github.com:n8tg/kubernetes-base-apps.git//.?ref=main"
 }
