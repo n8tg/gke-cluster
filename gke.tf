@@ -51,7 +51,7 @@ resource "google_container_node_pool" "primary_nodes" {
 }
 
 resource "google_container_node_pool" "free_node" {
-  name       = google_container_cluster.primary.name
+  name       = "micro-${google_container_cluster.primary.name}"
   cluster    = google_container_cluster.primary.name
   location   = var.gke_location
   node_count = var.gke_num_nodes

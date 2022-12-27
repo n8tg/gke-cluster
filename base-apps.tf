@@ -1,4 +1,4 @@
-module istio {
+module "istio" {
   depends_on = [
     google_container_cluster.primary,
     google_container_node_pool.primary_nodes
