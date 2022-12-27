@@ -1,9 +1,7 @@
-
 resource "google_service_account" "cluster" {
   account_id   = "gke-cluster"
   display_name = "GKE cluster service account"
 }
-
 
 # GKE cluster
 resource "google_container_cluster" "primary" {
